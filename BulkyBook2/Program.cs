@@ -1,4 +1,7 @@
-﻿namespace BulkyBook2;
+﻿using BulkyBook2.Data;
+using Microsoft.EntityFrameworkCore;
+
+namespace BulkyBook2;
 
 public class Program
 {
@@ -8,6 +11,10 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddControllersWithViews();
+        builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+            builder.Configuration.GetConnectionString("DefaultConnection")
+            ));
+        builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
 
         var app = builder.Build();
 
